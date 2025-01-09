@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>将DOM中的元素移入到ShadowDom中</title>
+  </head>
+  <body></body>
+  <script>
+    document.body.innerHTML = `
+      <div></div>
+      <p id="foo">Move me</p>
+    `
+    const divElement = document.querySelector('div')
+    const pElement = document.querySelector('p')
+    const shadowDOM = divElement.attachShadow({ mode: 'open' })
+    // 从父DOM中移除元素
+    divElement.parentElement.removeChild(pElement)
+    // 把元素添加到影子DOM
+    shadowDOM.appendChild(pElement)
+    // 检查元素是否移动到了影子DOM中
+    console.log(shadowDOM.innerHTML) //<pid="foo">Moveme</p>
+  </script>
+</html>

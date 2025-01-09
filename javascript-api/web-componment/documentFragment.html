@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>DocumentFragment</title>
+  </head>
+  <body>
+    <div id="container"></div>
+  </body>
+  <script>
+    const documentFragment = new DocumentFragment()
+    const p = document.createElement('p')
+    p.textContent = 'Hello World'
+    const p2 = document.createElement('p')
+    p2.textContent = 'Hello World 2'
+    const p3 = document.createElement('p')
+    p3.textContent = 'Hello World 3'
+
+    documentFragment.appendChild(p)
+    documentFragment.appendChild(p2)
+    documentFragment.appendChild(p3)
+
+    let length = documentFragment.children.length // 3
+    console.log('documentFragment 子元素的长度：', length)
+
+    const container = document.getElementById('container')
+    // 如果连续调用document.appendChild()，则不仅费事，还会导致多次布局重排。
+    // 而使用DocumentFragment可以一次性添加所有子节点，最多只会有一次布局重排
+    container.appendChild(documentFragment)
+
+    length = documentFragment.children.length // 0
+    console.log('设置后的 documentFragment 子元素的长度：', length)
+  </script>
+</html>
