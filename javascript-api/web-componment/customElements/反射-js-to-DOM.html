@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>反射-js反射到DOM，通过get\set函数</title>
+  </head>
+  <body></body>
+  <script>
+    document.body.innerHTML = `<x-foo></x-foo>`
+    class FooElement extends HTMLElement {
+      constructor() {
+        super()
+        this.bar = true
+      }
+      get bar() {
+        return this.getAttribute('bar')
+      }
+      set bar(value) {
+        this.setAttribute('bar', value)
+      }
+    }
+    customElements.define('x-foo', FooElement)
+    console.log(document.body.innerHTML)
+    //<x-foo bar="true">
+  </script>
+</html>

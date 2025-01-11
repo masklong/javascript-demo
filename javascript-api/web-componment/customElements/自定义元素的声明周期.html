@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>自定义声明周期狗子</title>
+  </head>
+  <body></body>
+  <script>
+    class FooElement extends HTMLElement {
+      constructor() {
+        super()
+        console.log('constructor')
+      }
+      connectedCallback() {
+        console.log('connectedCallback')
+      }
+      disconnectedCallback() {
+        console.log('disconnectedCallback')
+      }
+    }
+    customElements.define('x-foo', FooElement)
+    const fooElement = document.createElement('x-foo')
+    document.body.appendChild(fooElement)
+    document.body.removeChild(fooElement)
+    //constructor
+    //connectedCallback
+    //disconectedCallback
+  </script>
+</html>

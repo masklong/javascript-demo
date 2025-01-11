@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>自定义元素反射- DOM反射到JS对象</title>
+  </head>
+  <body></body>
+  <script>
+    class FooElement extends HTMLElement {
+      static get observedAttributes() {
+        return ['bar']
+      }
+      constructor() {
+        super()
+      }
+      get bar() {
+        return this.getAttribute('bar')
+      }
+      set bar(value) {
+        this.setAttribute('bar', value)
+      }
+      attributeChangedCallback(name, oldValue, newValue) {
+        if (oldValue !== newValue) {
+          console.log(`${oldValue}->${newValue}`)
+          this[name] = newValue
+          // this.setAttribute(name,newValue)
+        }
+      }
+    }
+    customElements.define('x-foo', FooElement)
+    document.body.innerHTML = `
+    <x-foo bar='false'></x-foo>
+    `
+    //null->false
+    document.querySelector('x-foo').setAttribute('bar', true)
+    //false->true
+  </script>
+</html>

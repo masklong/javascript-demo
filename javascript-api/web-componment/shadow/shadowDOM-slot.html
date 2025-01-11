@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>影子DOM slot 标签的用法</title>
+  </head>
+  <body></body>
+  <script>
+    document.body.innerHTML = `
+    <div>
+      <p>我是正常的P元素</p>
+    </div>
+    `
+    const divElement = document.querySelector('div')
+    const shadowDOM = divElement.attachShadow({
+      mode: 'open',
+    })
+    shadowDOM.innerHTML = `
+    <p>我是影子DOM中的P元素</p>
+    <slot></slot>
+    `
+    // 这种方式叫做投射，即将父DOM中的元素投射到影子DOM中,slot标签是一个占位符，用于投射父DOM中的元素
+    // p 元素依旧在父DOM中
+    console.log(document.querySelectorAll('p').length)
+    // 1
+  </script>
+</html>

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>named slot 命名槽位</title>
+  </head>
+  <body></body>
+  <script>
+    document.body.innerHTML = `
+    <div>
+      <p slot='foo'>foo</p>
+      <p slot='bar'>bar</p>
+    </div>
+    `
+    const divElement = document.querySelector('div')
+    const shadowDOM = divElement.attachShadow({
+      mode: 'open',
+    })
+    shadowDOM.innerHTML = `
+    <slot name='bar'></slot>
+    <slot name='foo'></slot>
+    `
+    // 渲染效果：bar在上面，foo在下面
+  </script>
+</html>

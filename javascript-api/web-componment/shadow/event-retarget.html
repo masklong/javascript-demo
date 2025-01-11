@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>影子DOM 事件重定向 event retarget</title>
+  </head>
+  <body></body>
+  <script>
+    document.body.innerHTML = `
+    <div onclick="console.log('Handled outside:',event.target)">
+    </div>
+    `
+    const divElement = document.querySelector('div')
+    const shadowDOM = divElement.attachShadow({
+      mode: 'open',
+    })
+    shadowDOM.innerHTML = `
+    <button onclick="console.log('Handled inside:',event.target)">Click me</button>
+    `
+    // 点击按钮时日志输出：
+    //Handledinside:   <buttononclick="..."></button>
+    //Handledoutside: <divonclick="..."></div>
+    // 解析：事件会从影子DOM中的元素冒泡到父DOM中的元素，父DOM的事件被触发
+    // 事件重定向：父DOM的事件对象的target属性指向的是父DOM中的元素，而不会是影子DOM中的元素
+  </script>
+</html>

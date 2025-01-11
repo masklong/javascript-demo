@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>创建自定义元素</title>
+  </head>
+  <body></body>
+  <script>
+    // 创建一个类，继承HTMLElement
+    class FooElement extends HTMLElement {}
+    // 使用customElements.define()方法注册自定义元素
+    // 第一个参数是元素名称，第二个参数是自定义元素的类
+    // 元素名称必须包含一个短横线，以便与内置元素区分
+    customElements.define('x-foo', FooElement)
+    // 将自定义元素添加到文档中
+    // 元素标签不能自闭合
+    document.body.innerHTML = '<x-foo>我是自定义元素</x-foo>'
+    console.log(document.querySelector('x-foo') instanceof FooElement) // true
+  </script>
+</html>
