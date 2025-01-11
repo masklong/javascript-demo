@@ -1,2 +1,2 @@
-# javascript-demo
-JavaScript高级程序设计第4版代码
+# javascript-study-demo
+JavaScript高级程序设计第4版学习代码
